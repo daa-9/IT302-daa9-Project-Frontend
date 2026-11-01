@@ -1,3 +1,11 @@
+/*
+    Dylan Almache
+    11/1/26
+    IT302 Section 001
+    Phase 4 Read Node.js Data Using React.js Assignment
+    daa9@njit.edu
+*/
+
 import React, { useState, useEffect } from 'react'
 import JobDataService from "../service/jobsDataService"
 import { Link } from "react-router-dom"
@@ -29,18 +37,6 @@ const JobsList = () => {
         console.log(e);
       });
   };
-
-  /*const retrieveNotices = () => {
-    JobDataService.getNotices()
-      .then((response) => {
-        console.log(response.data);
-        //start with 'All Ratings' if user doesn't specify any ratings
-        setNotices(["All Notices"].concat(response.data));
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  };*/
 
   const onChangeSearchTitle = (e) => {
     const searchTitle = e.target.value
