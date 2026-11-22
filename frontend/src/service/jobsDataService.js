@@ -1,6 +1,6 @@
 /*
     Dylan Almache
-    11/21/26
+    11/22/26
     IT302 Section 001
     Phase 5 C.U.D. Node.js Data using React.js Assignment
     daa9@njit.edu
@@ -11,7 +11,7 @@ import axios from "axios";
 class JobDataService {
   getAll(page = 0) {
     return axios.get(
-      `${process.env.PUBLIC_BACKEND_URL}/api/v1/daa9/jobs/`
+      `${process.env.PUBLIC_BACKEND_URL}/api/v1/daa9/jobs?page=${page}`
     );
   }
   get(id) {
@@ -43,7 +43,10 @@ class JobDataService {
 
   getNotices() {
     return axios.get(`${process.env.PUBLIC_BACKEND_URL}/api/v1/daa9/jobs/notice`)
+  }
 
+  getJobLevels() {
+    return axios.get(`${process.env.PUBLIC_BACKEND_URL}/api/v1/daa9/jobs/jobLevels`)
   }
 }
 export default new JobDataService();

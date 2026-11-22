@@ -1,6 +1,6 @@
 /*
     Dylan Almache
-    11/21/26
+    11/22/26
     IT302 Section 001
     Phase 5 C.U.D. Node.js Data using React.js Assignment
     daa9@njit.edu
@@ -28,6 +28,7 @@ const JobsList = () => {
 
   useEffect(() => {
     retrieveJobs();
+    retrieveJobLevels();
   }, []);
 
   useEffect(() => {
@@ -51,6 +52,17 @@ const JobsList = () => {
         console.log(e);
       });
   };
+
+  const retrieveJobLevels = () => {
+    JobDataService.getJobLevels()
+      .then((response) => {
+        console.log(response.data);
+        setJobLevels(["All Job Levels"].concat(response.data));
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+    };
 
   const retrieveNextPage = () => {
     if (currentSearchMode === "findByTitle") {
@@ -94,7 +106,7 @@ const JobsList = () => {
     () => {
       setSearchTitle("")
       setCurrentSearchMode("findByJobLevel")
-      if (searchJobLevel === "All Notices") {
+      if (searchJobLevel === "All Job Levels") {
         retrieveJobs()
       } else {
         find(searchJobLevel, "jobLevel")
@@ -110,7 +122,7 @@ const JobsList = () => {
               <Form.Group>
                 <Form.Control
                   type="text"
-                  placeholder="Search by title"
+                  placeholder="Search by job title"
                   value={searchTitle}
                   onChange={onChangeSearchTitle}
                 />
