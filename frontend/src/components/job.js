@@ -1,8 +1,8 @@
 /*
     Dylan Almache
-    11/1/26
+    11/21/26
     IT302 Section 001
-    Phase 4 Read Node.js Data Using React.js Assignment
+    Phase 5 C.U.D. Node.js Data using React.js Assignment
     daa9@njit.edu
 */
 
@@ -46,6 +46,21 @@ const Job = (props) => {
         getJob(id)
     }, [id])
 
+    const deleteNotice = (noticeId, index) => {
+        JobDataService.deleteNotice(noticeId, props.user.id)
+            .then(response => {
+                setJob((prevState) => {
+                    prevState.notices.splice(index, 1)
+                    return ({
+                        ...prevState
+                    })
+                })
+            })
+            .catch(e => {
+                console.log(e)
+            })
+    }
+
     return (
         <div>
             <Container>
@@ -86,7 +101,7 @@ const Job = (props) => {
                                                     state={{ currentNotice: notice }}
                                                 >Edit</Link>
                                                 </Col>
-                                                <Col><Button variant="link">Delete</Button></Col>
+                                                <Col><Button variant="link" onClick={() => deleteNotice(notice._id, index)}>Delete</Button></Col>
                                             </Row>}
                                     </Card.Body>
                                 </Card>

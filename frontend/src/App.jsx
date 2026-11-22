@@ -1,14 +1,15 @@
 /*
     Dylan Almache
-    11/1/26
+    11/21/26
     IT302 Section 001
-    Phase 4 Read Node.js Data Using React.js Assignment
+    Phase 5 C.U.D. Node.js Data using React.js Assignment
     daa9@njit.edu
 */
 
 import React, { StrictMode, useState, useCallback } from "react";
 import { Routes, Route, NavLink } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import AddNotice from "./components/addNotice";
 import JobsList from "./components/jobsList";
 import Job from "./components/job";
 import Login from "./components/login";
@@ -50,6 +51,10 @@ const App = () => {
         <Route path="/" element={<JobsList />}></Route>
         <Route path="/daa9_jobs" element={<JobsList />}></Route>
         <Route path="/daa9_jobs/:id/" element={<Job user={user} />}></Route>
+        <Route
+          path="/daa9_jobs/:id/notice"
+          element={<AddNotice user={user} />}
+        ></Route>
         <Route path="/login" element={<Login user={user} loginSetter={loginSetter} />}></Route>
       </Routes>
     </div>

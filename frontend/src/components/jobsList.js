@@ -1,8 +1,8 @@
 /*
     Dylan Almache
-    11/1/26
+    11/21/26
     IT302 Section 001
-    Phase 4 Read Node.js Data Using React.js Assignment
+    Phase 5 C.U.D. Node.js Data using React.js Assignment
     daa9@njit.edu
 */
 
@@ -22,21 +22,45 @@ const JobsList = () => {
   const [searchTitle, setSearchTitle] = useState("");
   const [searchJobLevel, setSearchJobLevel] = useState("");
   const [jobLevels, setJobLevels] = useState(["All Job Levels"]);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [entriesPerPage, setEntriesPerPage] = useState(0);
+  const [currentSearchMode, setCurrentSearchMode] = useState("")
 
   useEffect(() => {
     retrieveJobs();
   }, []);
 
+  useEffect(() => {
+    setCurrentPage(0)
+  }, [currentSearchMode])
+
+  useEffect(() => {
+    retrieveNextPage()
+  }, [currentPage])
+
   const retrieveJobs = () => {
-    JobDataService.getAll()
+    setCurrentSearchMode("")
+    JobDataService.getAll(currentPage)
       .then((response) => {
         console.log(response.data);
         setJobs(response.data.jobs);
+        setCurrentPage(response.data.page)
+        setEntriesPerPage(response.data.entries_per_page)
       })
       .catch((e) => {
         console.log(e);
       });
   };
+
+  const retrieveNextPage = () => {
+    if (currentSearchMode === "findByTitle") {
+      findByTitle()
+    } else if (currentSearchMode === "findByJobLevel") {
+      findByJobLevel()
+    } else {
+      retrieveJobs()
+    }
+  }
 
   const onChangeSearchTitle = (e) => {
     const searchTitle = e.target.value
@@ -49,7 +73,7 @@ const JobsList = () => {
   };
 
   const find = (query, by) => {
-    JobDataService.find(query, by)
+    JobDataService.find(query, by, currentPage)
       .then(response => {
         console.log(response.data)
         setJobs(response.data.jobs)
@@ -62,12 +86,14 @@ const JobsList = () => {
   const findByTitle =
     () => {
       setSearchJobLevel("")
+      setCurrentSearchMode("findByTitle")
       find(searchTitle, "jobTitle")
     }
 
   const findByJobLevel =
     () => {
       setSearchTitle("")
+      setCurrentSearchMode("findByJobLevel")
       if (searchJobLevel === "All Notices") {
         retrieveJobs()
       } else {
@@ -142,6 +168,13 @@ const JobsList = () => {
             )
           })}
         </Row>
+        <br />
+        Showing Page: {currentPage}
+        <Button
+          variant="link"
+          onClick={() => { setCurrentPage(currentPage + 1) }} >
+          Get Next {entriesPerPage} Results
+        </Button>
       </Container>
     </div>
   );
