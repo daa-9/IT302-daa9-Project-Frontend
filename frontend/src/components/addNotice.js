@@ -1,3 +1,11 @@
+/*
+    Dylan Almache
+    11/21/26
+    IT302 Section 001
+    Phase 5 C.U.D. Node.js Data using React.js Assignment
+    daa9@njit.edu
+*/
+
 import React, { useState } from 'react'
 import JobDataService from "../service/jobsDataService"
 import { Link, useParams, useLocation } from "react-router-dom"
