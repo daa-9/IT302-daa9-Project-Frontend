@@ -6,7 +6,7 @@
     daa9@njit.edu
 */
 
-import React, { useState } from 'react'
+import { useState } from 'react'
 import JobDataService from "../service/jobsDataService"
 import { Link, useParams, useLocation } from "react-router-dom"
 import Form from 'react-bootstrap/Form';

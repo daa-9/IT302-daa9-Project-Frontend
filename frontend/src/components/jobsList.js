@@ -6,7 +6,7 @@
     daa9@njit.edu
 */
 
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import JobDataService from "../service/jobsDataService"
 import { Link } from "react-router-dom"
 

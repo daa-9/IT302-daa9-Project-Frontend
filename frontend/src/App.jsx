@@ -6,7 +6,7 @@
     daa9@njit.edu
 */
 
-import React, { StrictMode, useState, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { Routes, Route, NavLink } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import AddNotice from "./components/addNotice";
@@ -17,21 +17,12 @@ import Login from "./components/login";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 
 const App = () => {
   const [user, setUser] = useState(null);
   const loginSetter = useCallback(user => {
     setUser(user);
   }, [setUser]);
-
-  async function login(user = null) {
-    setUser(user);
-  }
-
-  async function logout() {
-    setUser(null);
-  }
 
   return (
     <div>
@@ -42,7 +33,7 @@ const App = () => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Nav.Link as={NavLink} to={"/daa9_jobs"}>Jobs</Nav.Link>
-              <Nav.Link as={NavLink} to={user ? "" : "/login"}>{user ? "Logout User" : "Login"}</Nav.Link>
+              <Nav.Link as={NavLink} to={user ? "" : "/login"} onClick={user ? () => loginSetter(null) : undefined}>{user ? "Logout User" : "Login"}</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
